@@ -7,5 +7,5 @@ import { routes } from '@/routes/routes'
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <RouterProvider router={routes} />
-    </React.StrictMode>
+    </React.StrictMode>,
 )
