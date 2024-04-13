@@ -1,5 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
-import Register from './pages/Register.tsx'
+import { ProtectedRoute } from '@/auth/ProtectedRoute'
+import { Register } from './pages/Register'
+import { Login } from './pages/Login'
 
 export const routes = createBrowserRouter([
   {
@@ -9,5 +11,9 @@ export const routes = createBrowserRouter([
   {
     path: '/signup',
     element: <Register />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
   },
 ])

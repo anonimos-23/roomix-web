@@ -31,7 +31,7 @@ interface FormState {
   confirmPassword: string
 }
 
-export default function Register() {
+export function Register() {
   let navigate = useNavigate()
 
   const [formState, setFormState] = useState<FormState>({
@@ -228,7 +228,7 @@ export default function Register() {
             <span className="text-muted-foreground">
               Já tem uma conta criada?&nbsp;
             </span>
-            <Link className="font-medium" to={'/'}>
+            <Link className="font-medium" to={'/login'}>
               Login
             </Link>
           </div>
