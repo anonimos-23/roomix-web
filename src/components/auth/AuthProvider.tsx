@@ -3,12 +3,13 @@ import Cookies from 'js-cookie'
 import { jwtDecode, JwtPayload } from 'jwt-decode'
 
 interface User {
-  id: string | undefined
+  id: string
   name: string
   avatarUrl: string
 }
 
 type TokenPayload = JwtPayload & {
+  sub: string
   name: string
   avatarUrl: string
 }
