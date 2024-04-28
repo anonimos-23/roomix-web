@@ -124,7 +124,8 @@ export function SignUpForm() {
           })
         }
       })
-      .catch((_error) => {
+      .catch((error) => {
+        console.log(error)
         toast.error('Erro inesperado.', {
           description:
             'Ocorreu um erro com os nossos servidores! Por favor, tente novamente mais tarde.',

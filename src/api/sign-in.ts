@@ -7,13 +7,12 @@ export interface SignInRequest {
 }
 
 interface ServerResponse {
-  code: string | undefined
   message: string | undefined
   token: string | undefined
 }
 
 export async function signIn({ email, password }: SignInRequest) {
-  const data = await api
+  const response = await api
     .post<ServerResponse>(
       '/auth',
       {
@@ -27,18 +26,18 @@ export async function signIn({ email, password }: SignInRequest) {
       }
     )
     .then((response) => {
-      return response.data
+      return response
     })
     .catch(() => {
       throw new Error('Internal Server Error')
     })
 
-  if (data.code === 'UNAUTHORIZED' && data.message) {
-    throw new RootError(data.message)
+  if (response.status === 400 && response.data.message) {
+    throw new RootError(response.data.message)
   }
 
-  if (data.token) {
-    return { token: data.token }
+  if (response.data.token) {
+    return { token: response.data.token }
   } else {
     throw new Error('Unexpected error handling login')
   }
