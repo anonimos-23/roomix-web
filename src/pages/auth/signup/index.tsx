@@ -1,6 +1,6 @@
 import { Card, CardTitle, CardFooter } from '@/components/ui/card'
 import { Link } from 'react-router-dom'
-import { SignUpForm } from './signup-form'
+import { SignUpForm } from './form'
 
 export function SignUp() {
   return (

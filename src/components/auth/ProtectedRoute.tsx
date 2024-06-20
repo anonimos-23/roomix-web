@@ -1,18 +1,29 @@
-import { PropsWithChildren, useEffect } from 'react'
-import { useAuth } from './AuthProvider'
+import { PropsWithChildren, useEffect, useState } from 'react'
+import { useAuth } from '../providers/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 
 type ProtectedRouteProps = PropsWithChildren
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const user = useAuth()
+  const { accessToken } = useAuth()
+  const [isGettingAccess, setIsGettingAccess] = useState(true)
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (user === null) {
-      navigate('/login', { replace: true })
+    if (accessToken === undefined) {
+      setIsGettingAccess(true)
+      return
     }
-  }, [user, navigate])
+    if (accessToken === null) {
+      navigate('/sign-in', { replace: true })
+      return
+    }
+    setIsGettingAccess(false)
+  }, [accessToken])
+
+  if (isGettingAccess) {
+    return <h1>Getting access permittions</h1>
+  }
 
   return children
 }

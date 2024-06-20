@@ -1,6 +1,6 @@
 import { Card, CardTitle, CardFooter } from '@/components/ui/card'
 import { Link } from 'react-router-dom'
-import { LoginForm } from './signin-form'
+import { LoginForm } from './form'
 
 export function SignIn() {
   return (

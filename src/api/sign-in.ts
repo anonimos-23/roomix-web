@@ -8,13 +8,13 @@ export interface SignInRequest {
 
 interface ServerResponse {
   message: string | undefined
-  token: string | undefined
+  accessToken: string | undefined
 }
 
 export async function signIn({ email, password }: SignInRequest) {
   const response = await api
     .post<ServerResponse>(
-      '/auth',
+      '/auth/login',
       {
         email,
         password,
@@ -36,8 +36,8 @@ export async function signIn({ email, password }: SignInRequest) {
     throw new RootError(response.data.message)
   }
 
-  if (response.data.token) {
-    return { token: response.data.token }
+  if (response.data.accessToken) {
+    return { accessToken: response.data.accessToken }
   } else {
     throw new Error('Unexpected error handling login')
   }

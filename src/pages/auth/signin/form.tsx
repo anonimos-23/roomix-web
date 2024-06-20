@@ -3,7 +3,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Lock, AtSign } from 'lucide-react'
-import Cookies from 'js-cookie'
 import { useState, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -11,6 +10,7 @@ import { z } from 'zod'
 import { SignInRequest, signIn } from '@/api/sign-in'
 import { RootError } from '@/errors'
 import { toast } from 'sonner'
+import { useAuth } from '@/components/providers/AuthProvider'
 
 const schema = z.object({
   email: z.string().email(),
@@ -19,18 +19,13 @@ const schema = z.object({
 
 type FormFields = z.infer<typeof schema>
 
-interface FormState {
-  email: string
-  password: string
-}
-
 export function LoginForm() {
   const navigate = useNavigate()
   let [searchParams] = useSearchParams()
-
   const emailByParams = searchParams.get('email')
+  const { setAccessToken } = useAuth()
 
-  const [formState, setFormState] = useState<FormState>({
+  const [formState, setFormState] = useState<FormFields>({
     email: '',
     password: '',
   })
@@ -54,10 +49,7 @@ export function LoginForm() {
   async function onSubmit({ email, password }: SignInRequest) {
     await signIn({ email, password })
       .then((response) => {
-        var inHalfADay = 0.5
-        Cookies.set('auth', response.token, {
-          expires: inHalfADay,
-        })
+        setAccessToken(response.accessToken)
         navigate('/')
       })
       .catch((error) => {

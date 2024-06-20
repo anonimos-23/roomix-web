@@ -5,12 +5,12 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Lock, CaseSensitive, AtSign } from 'lucide-react'
-import Cookies from 'js-cookie'
 import { useState, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
+import { useAuth } from '@/components/providers/AuthProvider'
 
 const signUpSchema = z.object({
   firstName: z.string().min(1),
@@ -30,14 +30,19 @@ interface FormState {
 }
 
 export function SignUpForm() {
+  const { setAccessToken } = useAuth()
   let navigate = useNavigate()
-
   const [formState, setFormState] = useState<FormState>({
     email: '',
     firstName: '',
     password: '',
     confirmPassword: '',
   })
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<SignUpSchema>({ resolver: zodResolver(signUpSchema) })
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -53,12 +58,6 @@ export function SignUpForm() {
     formState.password &&
     formState.confirmPassword
   )
-
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<SignUpSchema>({ resolver: zodResolver(signUpSchema) })
 
   async function onSubmit({
     firstName,
@@ -82,18 +81,13 @@ export function SignUpForm() {
         if (response.status === 201) {
           await signIn({ email, password })
             .then((response) => {
-              var inHalfADay = 0.5
-
-              Cookies.set('auth', response.token, {
-                expires: inHalfADay,
-              })
+              setAccessToken(response.accessToken)
 
               toast.success('Conta criada', {
-                description:
-                  'Será brevemente redirecionado para a página da sua loja!',
+                description: 'Será brevemente redirecionado para o mercado!',
                 duration: 3000,
                 onAutoClose: () => {
-                  navigate(`/store/new`)
+                  navigate(`/explore`)
                 },
                 classNames: {
                   description: 'text-muted-foreground',
