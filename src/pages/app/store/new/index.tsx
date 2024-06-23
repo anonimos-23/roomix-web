@@ -39,7 +39,6 @@ import { CountryProps, getCountries } from '@/api/get-countries'
 import { toast } from 'sonner'
 import { CreateStore } from '@/api/create-store'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '@/components/providers/AuthProvider'
 
 // Form schema type declaration
 const formSchema = z.object({
@@ -51,7 +50,7 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>
 
 export function NewStore() {
-  let navigate = useNavigate()
+  const navigate = useNavigate()
   const [cardPage, setCardPage] = useState(1)
   const [countries, setCountries] = useState<CountryProps[]>([])
   const [isFetching, setIsFetching] = useState(true)
