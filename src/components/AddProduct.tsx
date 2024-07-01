@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogFooter,
 } from './ui/dialog'
-import { AddProductForm } from '@/pages/app/store/products/_components/forms/add-form'
+import { AddProductForm } from '@/pages/app/store/dashboard/products/_components/forms/add-form'
 import { useState } from 'react'
 
 export function AddProduct() {

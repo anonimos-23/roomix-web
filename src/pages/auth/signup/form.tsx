@@ -1,5 +1,5 @@
-import { createUser } from '@/api/create-user'
-import { signIn } from '@/api/sign-in'
+import { createUser } from '@/api/user/create-user'
+import { signIn } from '@/api/auth/sign-in'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -87,7 +87,7 @@ export function SignUpForm() {
                 description: 'Será brevemente redirecionado para o mercado!',
                 duration: 3000,
                 onAutoClose: () => {
-                  navigate(`/explore`)
+                  navigate(`/marketplace`)
                 },
                 classNames: {
                   description: 'text-muted-foreground',

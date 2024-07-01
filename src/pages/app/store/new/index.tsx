@@ -37,7 +37,7 @@ import {
 import { ChevronsUpDown, Check, ArrowRight } from 'lucide-react'
 import { CountryProps, getCountries } from '@/api/get-countries'
 import { toast } from 'sonner'
-import { CreateStore } from '@/api/create-store'
+import { CreateStore } from '@/api/store/create-store'
 import { useNavigate } from 'react-router-dom'
 
 // Form schema type declaration
@@ -98,7 +98,7 @@ export function NewStore() {
         }
         if (response.status === 201) {
           const storeId = response.data.storeId
-          navigate(`/store/${storeId}/overview`)
+          navigate(`/dashboard/${storeId}/overview`)
         }
       })
       .catch((error) => {
@@ -191,7 +191,7 @@ export function NewStore() {
                           <PopoverContent className="w-[200px] p-0">
                             <Command>
                               <CommandList className="overflow-scroll h-96">
-                                <CommandInput placeholder="Search framework..." />
+                                <CommandInput placeholder="Procurar país..." />
                                 <CommandEmpty>
                                   Nenhum país encontrado.
                                 </CommandEmpty>

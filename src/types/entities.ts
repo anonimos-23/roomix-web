@@ -1,8 +1,8 @@
-export interface Product {
+export interface TProduct {
   id: string
   name: string
-  description: string
-  price: string
+  description: string | null
+  price: number
   discount: number
   stock: number
   can_sell_without_stock: boolean
@@ -11,18 +11,73 @@ export interface Product {
   images: string[]
 }
 
-// Product server return
-// {
-//   "id": "1181c2be-69a3-4792-a244-a4eb75b73903",
-//   "name": "THROWBACK THAVAGE T-SHIRT",
-//   "description": "",
-//   "price": "30",
-//   "discount": 0,
-//   "stock": 0,
-//   "can_sell_without_stock": false,
-//   "slug": "51476",
-//   "created_at": "2024-06-22T18:48:43.827Z",
-//   "images": [
-//       "clxqh402n0000osw5f8qnfkjx"
-//   ]
-// }
+export interface TUserProfile {
+  email: string
+  name: string
+  phone: string | null
+  fileId: string | null
+  storeId: string | null
+}
+
+export interface TStore {
+  id: string
+  slug: string
+  name: string
+  slogan: string | null
+  email: string
+  country: string
+  shippingAddress: string | null
+  storeSettings: {
+    needEmailOnSale: boolean
+    needNameOnSale: boolean
+    needPhoneOnSale: boolean
+  } | null
+  images: {
+    logoId: string | undefined
+    bannerId: string | undefined
+  }
+  created_at: string
+}
+
+export interface TCartItem {
+  store: {
+    id: string
+    name: string
+  }
+  items: {
+    productId: string
+    name: string
+    price: number
+    discount: number
+    quantity: number
+    images: string[]
+  }[]
+}
+
+export interface TOrder {
+  id: string
+  status: 'Canceled' | 'Preparing' | 'Delivering' | 'Delivered'
+  totalAmount: string
+  customerName: string
+  customerEmail: string
+  customerNotes: string | null
+  country: string
+  city: string
+  province: string
+  postal: string
+  address: string
+  currency: 'EUR' | 'USD' | 'BRL' | 'GBP'
+  products: {
+    productId: string
+    name: string
+    quantity: number
+  }[]
+}
+
+export interface TFAQ {
+  id: number
+  question: string
+  answer: string
+  storeId: string
+  createdAt: string
+}

@@ -10,12 +10,17 @@ export function SignIn() {
           Iniciar Sessão
         </CardTitle>
         <LoginForm />
-        <CardFooter className="mt-2 flex justify-center">
+        <CardFooter className="mt-2 flex flex-col justify-center">
+          <div>
+            <Link className="hover:underline" to={'/recover-password'}>
+              Recuperar palavra-passe
+            </Link>
+          </div>
           <div>
             <span className="text-muted-foreground">
               Não tem conta criada?&nbsp;
             </span>
-            <Link className="font-medium" to={'/sign-up'}>
+            <Link className="font-medium hover:underline" to={'/sign-up'}>
               Criar conta
             </Link>
           </div>

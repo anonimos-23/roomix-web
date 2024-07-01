@@ -7,7 +7,7 @@ import { useState, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
-import { SignInRequest, signIn } from '@/api/sign-in'
+import { SignInRequest, signIn } from '@/api/auth/sign-in'
 import { RootError } from '@/errors'
 import { toast } from 'sonner'
 import { useAuth } from '@/components/providers/AuthProvider'
@@ -50,7 +50,7 @@ export function LoginForm() {
     await signIn({ email, password })
       .then((response) => {
         setAccessToken(response.accessToken)
-        navigate('/')
+        navigate('/marketplace')
       })
       .catch((error) => {
         if (error instanceof RootError) {
